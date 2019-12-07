@@ -1,12 +1,22 @@
 let adventofcode = {
-    days: 1,
+    days: 24,
     init: function() {
         for (let day = 1; day <= this.days; day++) {
-            console.log(day.toString().padStart(2, "0") + "/solve.js");
-            let script = document.createElement("script");
-            script.src = day.toString().padStart(2, "0") + "/solve.js";
+            let filepath = day.toString().padStart(2, "0") + "/solve.js";
 
-            document.head.appendChild(script);
+            fetch(filepath).then(function(response){
+                if (response.ok) {
+                    let script = document.createElement("script");
+                    script.src = filepath;
+
+                    document.head.appendChild(script);
+
+                    let option = document.createElement("option");
+                    option.text = day;
+
+                    document.querySelector('#day').appendChild(option);
+                }
+            });
         }
     },
     submit: function() {
