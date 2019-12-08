@@ -1,3 +1,5 @@
+adventofcode.activate(3);
+
 // bounds of fuel management system
 adventofcode.day3_min_x = 0;
 adventofcode.day3_min_y = 0;
@@ -171,7 +173,7 @@ adventofcode.day3_print_svg = function(paths, crossings) {
     let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('version', '1.1');
     svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-    svg.setAttribute('viewBox', adventofcode.day3_min_x + ' ' + adventofcode.day3_min_y + ' ' + (adventofcode.day3_max_x + Math.abs(adventofcode.day3_min_x)) + ' ' + (adventofcode.day3_max_y + Math.abs(adventofcode.day3_min_y)));
+    svg.setAttribute('viewBox', (adventofcode.day3_min_x - 50) + ' ' + (adventofcode.day3_min_y - 50) + ' ' + (adventofcode.day3_max_x + Math.abs(adventofcode.day3_min_x) + 100) + ' ' + (adventofcode.day3_max_y + Math.abs(adventofcode.day3_min_y) + 100));
 
     let path_1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     path_1.setAttribute('d', 'M' + paths[0].map(node => node.x+','+node.y).join(" "));
@@ -203,5 +205,5 @@ adventofcode.day3_print_svg = function(paths, crossings) {
         svg.appendChild(dot);
     });
 
-    document.body.appendChild(svg);
+    document.querySelector('#output_area').appendChild(svg);
 };

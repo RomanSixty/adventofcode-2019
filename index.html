@@ -5,29 +5,70 @@
         <meta charset="utf-8">
         <script src="lib.js"></script>
         <style>
-            textarea {
+            body {
+                text-align: center;
+            }
+            .area {
+                position: relative;
+                display: inline-block;
                 width: 49%;
-                height: 300px;
+                height: 92vh;
+                padding: 5px 5px 20px;
+                border: 1px solid black;
+            }
+            textarea {
+                width: 100%;
+                height: 100%;
+                position: relative;
+                z-index: 5;
+                background: transparent;
+                text-align: left;
+                border: 0;
             }
             svg {
-                max-height: 50vh;
+                position: absolute;
+                top: 0;
+                left: 0;
+                max-height: 100%;
+                max-width: 100%;
             }
         </style>
     </head>
     <body>
-        <textarea id="input" placeholder="input data"></textarea>
-        <textarea id="output" placeholder="output data" readonly></textarea>
+        <div id="input_area"  class="area"><textarea id="input"  placeholder="input data"></textarea></div>
+        <div id="output_area" class="area"><textarea id="output" placeholder="output data" readonly></textarea></div>
         <br>
-        <label for="day">Day</label>
-        <select id="day"></select>
-        <br>
-        <label for="part">Part</label>
-        <select id="part">
-            <option>1</option>
-            <option>2</option>
+        <select id="day">
+            <option value="1" disabled>Day 1</option>
+            <option value="2" disabled>Day 2</option>
+            <option value="3" disabled>Day 3</option>
+            <option value="4" disabled>Day 4</option>
+            <option value="5" disabled>Day 5</option>
+            <option value="6" disabled>Day 6</option>
+            <option value="7" disabled>Day 7</option>
+            <option value="8" disabled>Day 8</option>
+            <option value="9" disabled>Day 9</option>
+            <option value="10" disabled>Day 10</option>
+            <option value="11" disabled>Day 11</option>
+            <option value="12" disabled>Day 12</option>
+            <option value="13" disabled>Day 13</option>
+            <option value="14" disabled>Day 14</option>
+            <option value="15" disabled>Day 15</option>
+            <option value="16" disabled>Day 16</option>
+            <option value="17" disabled>Day 17</option>
+            <option value="18" disabled>Day 18</option>
+            <option value="19" disabled>Day 19</option>
+            <option value="20" disabled>Day 20</option>
+            <option value="21" disabled>Day 21</option>
+            <option value="22" disabled>Day 22</option>
+            <option value="23" disabled>Day 23</option>
+            <option value="24" disabled>Day 24</option>
+            <option value="25" disabled>Day 25</option>
         </select>
-        <br>
+        <select id="part">
+            <option value="1">Part 1</option>
+            <option value="2">Part 2</option>
+        </select>
         <button id="submit" onclick="adventofcode.submit();">submit</button>
-        <br>
     </body>
 </html>

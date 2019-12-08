@@ -4,25 +4,18 @@ let adventofcode = {
         for (let day = 1; day <= this.days; day++) {
             let filepath = day.toString().padStart(2, "0") + "/solve.js";
 
-            fetch(filepath).then(function(response){
-                if (response.ok) {
-                    let script = document.createElement("script");
-                    script.src = filepath;
+            let script = document.createElement("script");
+            script.src = filepath;
 
-                    document.head.appendChild(script);
-
-                    let option = document.createElement("option");
-                    option.text = day;
-
-                    document.querySelector('#day').appendChild(option);
-                }
-            });
+            document.head.appendChild(script);
         }
+    },
+    activate: function(day) {
+        document.querySelector('#day option[value="'+day+'"]').disabled = false;
     },
     submit: function() {
         document.querySelector("#output").value = 'calculating...';
-
-        document.querySelectorAll('svg').forEach(elem => elem.remove());
+        document.querySelectorAll("#output_area svg").forEach(elem => elem.remove());
 
         const day  = document.querySelector('#day').value;
         const part = document.querySelector('#part').value;

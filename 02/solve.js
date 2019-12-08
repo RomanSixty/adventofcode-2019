@@ -1,3 +1,5 @@
+adventofcode.activate(2);
+
 adventofcode.day2_part1 = function(input) {
     input = input.split(",").map(x => parseInt(x));
 

@@ -1,3 +1,5 @@
+adventofcode.activate(1);
+
 adventofcode.day1_part1 = function(input) {
     input = adventofcode.to_array(input);
     input = input.map(x => Math.floor(parseInt(x)/3) - 2);
