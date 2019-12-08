@@ -73,7 +73,7 @@ adventofcode.day6_recursive_build_tree = function(tree, body, orbit_count, orbit
         else if (b === 'YOU')
             adventofcode.day6_orbit_objects_YOU = orbit_objects.split('|');
 
-        newtree[b] = adventofcode.day6_build_tree(tree, b, orbit_count+1, b+'|'+orbit_objects);
+        newtree[b] = adventofcode.day6_recursive_build_tree(tree, b, orbit_count+1, b+'|'+orbit_objects);
     });
 
     return newtree;
