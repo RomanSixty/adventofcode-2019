@@ -20,6 +20,10 @@ let adventofcode = {
         }
     },
     submit: function() {
+        document.querySelector("#output").value = 'calculating...';
+
+        document.querySelectorAll('svg').forEach(elem => elem.remove());
+
         const day  = document.querySelector('#day').value;
         const part = document.querySelector('#part').value;
 
