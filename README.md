@@ -10,7 +10,7 @@ http://adventofcode.com/2019
 
 ## Usage
 
-* open `index.html` in a web browser
+* open `index.html` in a web browser (or [use the github page](https://romansixty.github.io/adventofcode-2019/))
 * paste your input data in the first text box
 * select which day and part you want to solve
 * hit the submit button
