@@ -14,3 +14,10 @@ http://adventofcode.com/2019
 * paste your input data in the first text box
 * select which day and part you want to solve
 * hit the submit button
+
+## Gimmicks
+
+Some days produce graphical output using generated SVG:
+
+* day 2: wire diagram and crossings
+* day 7: password shown in space image
