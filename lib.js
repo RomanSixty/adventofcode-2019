@@ -15,7 +15,7 @@ let adventofcode = {
     },
     submit: function() {
         document.querySelector("#output").value = 'calculating...';
-        document.querySelectorAll("#output_area svg").forEach(elem => elem.remove());
+        document.querySelectorAll("#output_area svg, #output_area img").forEach(elem => elem.remove());
 
         const day  = document.querySelector('#day').value;
         const part = document.querySelector('#part').value;
@@ -26,6 +26,13 @@ let adventofcode = {
     },
     to_array: function(input) {
         return input.split("\n");
+    },
+    showImage: function(src) {
+        let img = document.createElement('img');
+
+        img.src = src;
+
+        document.querySelector('#output_area').appendChild(img);
     }
 };
 
