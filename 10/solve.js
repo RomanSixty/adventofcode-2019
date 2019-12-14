@@ -74,7 +74,7 @@ adventofcode.day10_get_asteroids = function(input) {
             let diff_x = asteroid2.x - asteroid1.x;
             let diff_y = asteroid2.y - asteroid1.y;
 
-            const gcd = adventofcode.day10_greatest_common_divisor(Math.abs(diff_x), Math.abs(diff_y));
+            const gcd = adventofcode.greatestCommonDivisor(Math.abs(diff_x), Math.abs(diff_y));
 
             diff_x /= gcd;
             diff_y /= gcd;
@@ -108,8 +108,4 @@ adventofcode.day10_line_of_sight = function(asteroid, diff_x, diff_y) {
     }
 
     return true;
-};
-
-adventofcode.day10_greatest_common_divisor = function(x, y) {
-    return (!y) ? x : adventofcode.day10_greatest_common_divisor(y, x % y);
 };

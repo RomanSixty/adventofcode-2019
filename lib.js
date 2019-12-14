@@ -33,6 +33,12 @@ let adventofcode = {
         img.src = src;
 
         document.querySelector('#output_area').appendChild(img);
+    },
+    greatestCommonDivisor: function(x, y) {
+        return (!y) ? x : this.greatestCommonDivisor(y, x % y);
+    },
+    leastCommonMultiple: function(x, y) {
+        return Math.abs((x * y) / this.greatestCommonDivisor(x, y));
     }
 };
 
