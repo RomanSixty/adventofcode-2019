@@ -57,20 +57,20 @@ adventofcode.init();
  * @returns {string} return value
  */
 adventofcode.opcode_process = function(input, user_input, keep = -1) {
-    let program = '';
-
-    program = input.split(",").map(x => parseInt(x));
+    let program = input.split(",").map(x => parseInt(x));
 
     if (keep >= 0 ) {
-        if (typeof adventofcode.opcode_memory == 'undefined')
-            adventofcode.opcode_reset();
+        if (typeof this.opcode_memory == 'undefined')
+            this.opcode_reset();
 
-        if (typeof adventofcode.opcode_memory[keep] != 'undefined')
-            program = adventofcode.opcode_memory[keep];
+        if (typeof this.opcode_memory[keep] != 'undefined')
+            program = this.opcode_memory[keep];
     }
 
     let pointer = 0;
     let output = '';
+
+    this.opcode_relative_base = 0;
 
     while (program[pointer] !== 99) {
         const opcode   = program[pointer].toString().padStart(5, "0");
@@ -83,63 +83,71 @@ adventofcode.opcode_process = function(input, user_input, keep = -1) {
 
         switch (op_parts[4]) {
             case 1:
-                program[program[pointer+3]] = adventofcode.opcode_get_parameter(program, pointer+1, op_parts[2]) + adventofcode.opcode_get_parameter(program, pointer+2, op_parts[1]);
+                program[this.opcode_get_pointer(program, pointer+3, op_parts[0])] = program[this.opcode_get_pointer(program, pointer+1, op_parts[2])] + program[this.opcode_get_pointer(program, pointer+2, op_parts[1])];
                 pointer += 4;
                 break;
 
             case 2:
-                program[program[pointer+3]] = adventofcode.opcode_get_parameter(program, pointer+1, op_parts[2]) * adventofcode.opcode_get_parameter(program, pointer+2, op_parts[1]);
+                program[this.opcode_get_pointer(program, pointer+3, op_parts[0])] = program[this.opcode_get_pointer(program, pointer+1, op_parts[2])] * program[this.opcode_get_pointer(program, pointer+2, op_parts[1])];
                 pointer += 4;
                 break;
 
             case 3:
-                program[program[pointer+1]] = user_input.shift();
+                program[this.opcode_get_pointer(program, pointer+1, op_parts[2])] = user_input.shift();
                 pointer += 2;
                 break;
 
             case 4:
-                output = adventofcode.opcode_get_parameter(program, pointer+1, op_parts[2]);
+                output = program[this.opcode_get_pointer(program, pointer+1, op_parts[2])];
                 pointer += 2;
                 break;
 
             case 5:
-                if (adventofcode.opcode_get_parameter(program, pointer+1, op_parts[2]) > 0) {
-                    pointer = adventofcode.opcode_get_parameter(program, pointer+2, op_parts[1]);
-                } else {
+                if (program[this.opcode_get_pointer(program, pointer+1, op_parts[2])] > 0)
+                    pointer = program[this.opcode_get_pointer(program, pointer+2, op_parts[1])];
+                else
                     pointer += 3;
-                }
                 break;
 
             case 6:
-                if (adventofcode.opcode_get_parameter(program, pointer+1, op_parts[2]) === 0) {
-                    pointer = adventofcode.opcode_get_parameter(program, pointer+2, op_parts[1]);
-                } else {
+                if (program[this.opcode_get_pointer(program, pointer+1, op_parts[2])] === 0)
+                    pointer = program[this.opcode_get_pointer(program, pointer+2, op_parts[1])];
+                else
                     pointer += 3;
-                }
                 break;
 
             case 7:
-                program[program[pointer+3]] = (adventofcode.opcode_get_parameter(program, pointer+1, op_parts[2]) < adventofcode.opcode_get_parameter(program, pointer+2, op_parts[1])) ? 1 : 0;
+                program[this.opcode_get_pointer(program, pointer+3, op_parts[0])] = (program[this.opcode_get_pointer(program, pointer+1, op_parts[2])] < program[this.opcode_get_pointer(program, pointer+2, op_parts[1])]) ? 1 : 0;
                 pointer += 4;
                 break;
 
             case 8:
-                program[program[pointer+3]] = (adventofcode.opcode_get_parameter(program, pointer+1, op_parts[2]) === adventofcode.opcode_get_parameter(program, pointer+2, op_parts[1])) ? 1 : 0;
+                program[this.opcode_get_pointer(program, pointer+3, op_parts[0])] = (program[this.opcode_get_pointer(program, pointer+1, op_parts[2])] === program[this.opcode_get_pointer(program, pointer+2, op_parts[1])]) ? 1 : 0;
                 pointer += 4;
+                break;
+
+            case 9:
+                this.opcode_relative_base += program[this.opcode_get_pointer(program, pointer+1, op_parts[2])];
+                pointer += 2;
                 break;
         }
     }
 
     if (keep >= 0 )
-        adventofcode.opcode_memory[keep] = program;
+        this.opcode_memory[keep] = program;
 
     return output;
 };
 
-adventofcode.opcode_get_parameter = function(program, pointer, mode) {
-    return (mode === 1) ? program[pointer] : program[program[pointer]];
+adventofcode.opcode_get_pointer = function(program, pointer, mode) {
+    if (mode === 2)
+        return program[pointer] + this.opcode_relative_base;
+    else if (mode === 1)
+        return pointer;
+    else
+        return program[pointer];
 };
 
 adventofcode.opcode_reset = function() {
-    adventofcode.opcode_memory = [];
+    this.opcode_memory = [];
 };
