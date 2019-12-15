@@ -58,6 +58,8 @@ adventofcode.init();
  */
 adventofcode.opcode_process = function(input, user_input, keep = -1) {
     let program = input.split(",").map(x => parseInt(x));
+    let pointer = 0;
+    let output  = [];
 
     if (keep >= 0 ) {
         if (typeof this.opcode_memory == 'undefined')
@@ -66,9 +68,6 @@ adventofcode.opcode_process = function(input, user_input, keep = -1) {
         if (typeof this.opcode_memory[keep] != 'undefined')
             program = this.opcode_memory[keep];
     }
-
-    let pointer = 0;
-    let output = '';
 
     this.opcode_relative_base = 0;
 
@@ -98,7 +97,7 @@ adventofcode.opcode_process = function(input, user_input, keep = -1) {
                 break;
 
             case 4:
-                output = program[this.opcode_get_pointer(program, pointer+1, op_parts[2])];
+                output.push(program[this.opcode_get_pointer(program, pointer+1, op_parts[2])]);
                 pointer += 2;
                 break;
 
@@ -133,10 +132,10 @@ adventofcode.opcode_process = function(input, user_input, keep = -1) {
         }
     }
 
-    if (keep >= 0 )
+    if (keep >= 0)
         this.opcode_memory[keep] = program;
 
-    return output;
+    return output.join(',');
 };
 
 adventofcode.opcode_get_pointer = function(program, pointer, mode) {

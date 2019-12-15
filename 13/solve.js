@@ -1,13 +1,63 @@
 adventofcode.activate(13);
 
 adventofcode.day13_part1 = function(input) {
-    adventofcode.showImage('https://i.giphy.com/media/LZ4YlxtpHWoIXMFLFC/giphy.webp');
+    let screen_data = adventofcode.opcode_process(input).split(',');
 
-    return "Did I read intcode...";
+    let tiles = [[],[],[],[],[]];
+
+    let max_x = 0,
+        max_y = 0;
+
+    for (let i = 0; i < screen_data.length; i+=3) {
+        tiles[screen_data[i+2]].push({x: screen_data[i], y: screen_data[i+1]});
+
+        max_x = Math.max(max_x, screen_data[i]);
+        max_y = Math.max(max_y, screen_data[i+1]);
+    }
+
+    this.day13_print_screen(tiles, max_x, max_y);
+
+    return tiles[2].length;
 };
 
 adventofcode.day13_part2 = function(input) {
     adventofcode.showImage('https://i.giphy.com/media/9J7i4fKvfqnRvpyNjM/giphy.webp');
 
-    return "*yawn*";
+    return "nope";
+};
+
+adventofcode.day13_print_screen = function(tiles, max_x, max_y) {
+    let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('version', '1.1');
+    svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    svg.setAttribute('viewBox', '0 0 ' + (max_x * 20 + 20) + ' ' + (max_y * 20 + 20));
+
+    tiles[0].forEach(tile => svg.appendChild(this.day13_get_svg_pixel(tile, 'black')));
+    tiles[1].forEach(tile => svg.appendChild(this.day13_get_svg_pixel(tile, 'gray')));
+    tiles[2].forEach(tile => svg.appendChild(this.day13_get_svg_pixel(tile, 'yellow')));
+    tiles[3].forEach(tile => svg.appendChild(this.day13_get_svg_pixel(tile, 'blue')));
+
+    tiles[4].forEach(tile => {
+        let ball = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        ball.setAttribute('cx', tile.x * 20 + 10);
+        ball.setAttribute('cy', tile.y * 20 + 10);
+        ball.setAttribute('r', '10');
+        ball.setAttribute('fill', 'red');
+        svg.appendChild(ball);
+    });
+
+    document.querySelector('#output_area').appendChild(svg);
+};
+
+adventofcode.day13_get_svg_pixel = function(tile, color) {
+    let pixel = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+
+    pixel.setAttribute('x', tile.x * 20);
+    pixel.setAttribute('y', tile.y * 20);
+    pixel.setAttribute('width',  '19');
+    pixel.setAttribute('height', '19');
+
+    pixel.setAttribute('fill', color);
+
+    return pixel;
 };
