@@ -84,9 +84,9 @@ adventofcode.day12_tick = function() {
     });
 
     // update positions
-    for (let moon in adventofcode.day12_moons) {
+    for (let moon of adventofcode.day12_moons) {
         ['x', 'y', 'z'].forEach(coordinate => {
-            adventofcode.day12_moons[moon].position[coordinate] += adventofcode.day12_moons[moon].velocity[coordinate];
+            moon.position[coordinate] += moon.velocity[coordinate];
         });
     }
 };
@@ -94,14 +94,9 @@ adventofcode.day12_tick = function() {
 adventofcode.day12_calculate_energy = function() {
     let total_energy = 0;
 
-    for (let moon in adventofcode.day12_moons) {
-        const potential_energy = Math.abs(adventofcode.day12_moons[moon].position.x)
-                               + Math.abs(adventofcode.day12_moons[moon].position.y)
-                               + Math.abs(adventofcode.day12_moons[moon].position.z);
-
-        const kinetic_energy   = Math.abs(adventofcode.day12_moons[moon].velocity.x)
-                               + Math.abs(adventofcode.day12_moons[moon].velocity.y)
-                               + Math.abs(adventofcode.day12_moons[moon].velocity.z);
+    for (let moon of adventofcode.day12_moons) {
+        const potential_energy = Math.abs(moon.position.x) + Math.abs(moon.position.y) + Math.abs(moon.position.z);
+        const kinetic_energy   = Math.abs(moon.velocity.x) + Math.abs(moon.velocity.y) + Math.abs(moon.velocity.z);
 
         total_energy += potential_energy * kinetic_energy;
     }

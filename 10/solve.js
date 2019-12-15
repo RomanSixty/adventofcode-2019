@@ -101,9 +101,9 @@ adventofcode.day10_get_asteroids = function(input) {
 };
 
 adventofcode.day10_line_of_sight = function(asteroid, diff_x, diff_y) {
-    for (let fraction in asteroid.losFractions) {
+    for (let fraction of asteroid.losFractions) {
         // actually we only need to check if the fractions match
-        if (diff_x === asteroid.losFractions[fraction][0] && diff_y === asteroid.losFractions[fraction][1])
+        if (diff_x === fraction[0] && diff_y === fraction[1])
             return false;
     }
 
