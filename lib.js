@@ -16,6 +16,7 @@ let adventofcode = {
     submit: function() {
         document.querySelector("#output").value = 'calculating...';
         document.querySelectorAll("#output_area svg, #output_area img").forEach(elem => elem.remove());
+        document.querySelector('#submit').disabled = true;
 
         const day  = document.querySelector('#day').value;
         const part = document.querySelector('#part').value;
@@ -23,6 +24,8 @@ let adventofcode = {
         const input = document.querySelector('#input').value;
 
         eval('document.querySelector("#output").value = this.day'+day+'_part'+part+'(input);');
+
+        document.querySelector('#submit').disabled = false;
     },
     to_array: function(input) {
         return input.split("\n");
