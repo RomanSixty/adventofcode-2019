@@ -56,7 +56,7 @@ adventofcode.init();
  * @param {int} keep program in memory for another run
  * @returns {string} return value
  */
-adventofcode.opcode_process = function(input, user_input, keep = -1) {
+adventofcode.opcode_process = function(input, user_input = [], keep = -1) {
     let program = input.split(",").map(x => parseInt(x));
     let pointer = 0;
     let output  = [];
