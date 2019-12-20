@@ -13,8 +13,6 @@ adventofcode.day19_part1 = function(input) {
 };
 
 adventofcode.day19_part2 = function(input) {
-    let pixels = [];
-
     // an educated guess
     let x = 55;
     let y = 50;
