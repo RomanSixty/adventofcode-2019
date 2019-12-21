@@ -58,7 +58,7 @@ adventofcode.init();
  * @param {function} callback function in case of missing input
  * @returns {string} return value
  */
-adventofcode.opcode_process = function(input, user_input = [], callback = function(){}) {
+adventofcode.opcode_process = function(input, user_input = [], callback = {}) {
     let program = input.split(",").map(x => parseInt(x));
     let pointer = 0;
     let output  = [];
@@ -145,8 +145,4 @@ adventofcode.opcode_get_pointer = function(program, pointer, mode) {
         return pointer;
     else
         return program[pointer];
-};
-
-adventofcode.opcode_reset = function() {
-    this.opcode_memory = [];
 };

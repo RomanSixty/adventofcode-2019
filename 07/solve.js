@@ -5,8 +5,6 @@ adventofcode.day7_part1 = function(input) {
 
     let highest_signal = 0;
 
-    adventofcode.opcode_reset();
-
     permutations.forEach(perm => {
         let last_output = 0;
 
