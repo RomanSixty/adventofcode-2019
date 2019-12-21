@@ -64,8 +64,8 @@ adventofcode.day13_gameplay = function(screen_data, return_score = false) {
     // if you want to see the game play out, uncomment this...
     // however it will last a few minutes... especially towards the end
     //setTimeout(() => {
-        adventofcode.day13_print_screen(tiles, max_x, max_y);
-    //},1);
+    //    adventofcode.day13_print_screen(tiles, max_x, max_y);
+    //}, 0);
 
     return return_score ? score : paddle_movement;
 };
