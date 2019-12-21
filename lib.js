@@ -23,9 +23,11 @@ let adventofcode = {
 
         const input = document.querySelector('#input').value;
 
-        eval('document.querySelector("#output").value = this.day'+day+'_part'+part+'(input);');
-
-        document.querySelector('#submit').disabled = false;
+        // make this asynchronous to show "calculating..." while processing
+        setTimeout(() => {
+            document.getElementById("output").value = this['day' + day + '_part' + part](input);
+            document.querySelector('#submit').disabled = false;
+        }, 10);
     },
     to_array: function(input) {
         return input.split("\n");
