@@ -55,21 +55,13 @@ adventofcode.init();
  *
  * @param {string} input program source code
  * @param {int[]} user_input
- * @param {int} keep program in memory for another run
+ * @param {function} callback function in case of missing input
  * @returns {string} return value
  */
-adventofcode.opcode_process = function(input, user_input = [], keep = -1) {
+adventofcode.opcode_process = function(input, user_input = [], callback = function(){}) {
     let program = input.split(",").map(x => parseInt(x));
     let pointer = 0;
     let output  = [];
-
-    if (keep >= 0 ) {
-        if (typeof this.opcode_memory == 'undefined')
-            this.opcode_reset();
-
-        if (typeof this.opcode_memory[keep] != 'undefined')
-            program = this.opcode_memory[keep];
-    }
 
     this.opcode_relative_base = 0;
 
@@ -94,6 +86,15 @@ adventofcode.opcode_process = function(input, user_input = [], keep = -1) {
                 break;
 
             case 3:
+                if (user_input.length === 0) {
+                    if (typeof callback === 'function') {
+                        user_input.push(callback(output));
+                        output = [];
+                    }
+                    else
+                        return output.join(',');
+                }
+
                 program[this.opcode_get_pointer(program, pointer+1, op_parts[2])] = user_input.shift();
                 pointer += 2;
                 break;
@@ -133,9 +134,6 @@ adventofcode.opcode_process = function(input, user_input = [], keep = -1) {
                 break;
         }
     }
-
-    if (keep >= 0)
-        this.opcode_memory[keep] = program;
 
     return output.join(',');
 };
