@@ -1,7 +1,7 @@
 adventofcode.activate(7);
 
 adventofcode.day7_part1 = function(input) {
-    const permutations = adventofcode.day7_permute([0,1,2,3,4]);
+    const permutations = this.day7_permute([0,1,2,3,4]);
 
     let highest_signal = 0;
 
@@ -9,17 +9,19 @@ adventofcode.day7_part1 = function(input) {
         let last_output = 0;
 
         perm.forEach(phase_setting => {
-            last_output = adventofcode.opcode_process(input,[phase_setting, last_output]);
+            last_output = aoc_intcode.process(input,[phase_setting, last_output]);
         });
 
         highest_signal = Math.max(highest_signal, last_output);
     });
 
-    return highest_signal;
+    this.showImage('https://i.giphy.com/media/Ebu8aRL2qxMzK/giphy.webp');
+
+    return 'this is now totally fudged up...';
 };
 
 adventofcode.day7_part2 = function(input) {
-    const permutations = adventofcode.day7_permute([5,6,7,8,9]);
+    const permutations = this.day7_permute([5,6,7,8,9]);
 
     return "I don't get it... how is the feedback loop supposed to terminate?";
 };
