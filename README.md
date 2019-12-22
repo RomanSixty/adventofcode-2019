@@ -23,3 +23,4 @@ Some days produce graphical output using generated SVG:
 * day 8: password shown in space image
 * day 11: painted hull
 * day 13: game screen
+* day 15: the maze
