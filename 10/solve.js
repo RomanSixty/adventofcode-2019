@@ -1,23 +1,23 @@
 adventofcode.activate(10);
 
 adventofcode.day10_part1 = function(input) {
-    adventofcode.day10_asteroids = [];
+    this.day10_asteroids = [];
 
-    adventofcode.day10_get_asteroids(input);
+    this.day10_get_asteroids(input);
 
-    return adventofcode.day10_max_seeing;
+    return this.day10_max_seeing;
 };
 
 adventofcode.day10_part2 = function(input) {
-    adventofcode.day10_asteroids = [];
+    this.day10_asteroids = [];
 
-    adventofcode.day10_get_asteroids(input);
+    this.day10_get_asteroids(input);
 
     // lets just sort all the y/x fractions of the best asteroid clockwise
     // the order is as follows:
     //   -∞ -> +∞ for positive x, then
     //   -∞ -> +∞ for negative x
-    let list = adventofcode.day10_asteroids[adventofcode.day10_best_asteroid].losFractions.sort(function(a, b){
+    let list = this.day10_asteroids[this.day10_best_asteroid].losFractions.sort(function(a, b){
         // divisions by 0 suck... hence
         if (a[0] === 0)
             a[0] = 0.0001;
@@ -42,7 +42,7 @@ adventofcode.day10_part2 = function(input) {
     // so the laser doesn't have to wrap around and we don't need to calculate
     // all newly visible asteroids again
 
-    const asteroid_200 = adventofcode.day10_asteroids[list[199][2]];
+    const asteroid_200 = this.day10_asteroids[list[199][2]];
 
     return ( asteroid_200.x * 100 + asteroid_200.y);
 };
@@ -51,7 +51,7 @@ adventofcode.day10_get_asteroids = function(input) {
     input.split("\n").forEach((data, row) => {
         data.split("").forEach((value, col) => {
             if (value === '#') {
-                adventofcode.day10_asteroids.push({
+                this.day10_asteroids.push({
                     x: col,
                     y: row,
                     seeing: 0,       // number of other asteroids we see
@@ -61,8 +61,8 @@ adventofcode.day10_get_asteroids = function(input) {
         });
     });
 
-    adventofcode.day10_asteroids.forEach((asteroid1, nr1) => {
-        adventofcode.day10_asteroids.forEach((asteroid2, nr2) => {
+    this.day10_asteroids.forEach((asteroid1, nr1) => {
+        this.day10_asteroids.forEach((asteroid2, nr2) => {
             // don't check against ourself
             if (asteroid1.x === asteroid2.x && asteroid1.y === asteroid2.y)
                 return;
@@ -74,28 +74,28 @@ adventofcode.day10_get_asteroids = function(input) {
             let diff_x = asteroid2.x - asteroid1.x;
             let diff_y = asteroid2.y - asteroid1.y;
 
-            const gcd = adventofcode.greatestCommonDivisor(Math.abs(diff_x), Math.abs(diff_y));
+            const gcd = this.greatestCommonDivisor(Math.abs(diff_x), Math.abs(diff_y));
 
             diff_x /= gcd;
             diff_y /= gcd;
 
-            if (adventofcode.day10_line_of_sight(asteroid1, diff_x, diff_y)) {
-                adventofcode.day10_asteroids[nr1].seeing++;
-                adventofcode.day10_asteroids[nr2].seeing++;
+            if (this.day10_line_of_sight(asteroid1, diff_x, diff_y)) {
+                this.day10_asteroids[nr1].seeing++;
+                this.day10_asteroids[nr2].seeing++;
 
-                adventofcode.day10_asteroids[nr1].losFractions.push([diff_x, diff_y,   nr2]);
-                adventofcode.day10_asteroids[nr2].losFractions.push([-diff_x, -diff_y, nr1]);
+                this.day10_asteroids[nr1].losFractions.push([diff_x, diff_y,   nr2]);
+                this.day10_asteroids[nr2].losFractions.push([-diff_x, -diff_y, nr1]);
             }
         });
     });
 
-    adventofcode.day10_max_seeing    = 0;
-    adventofcode.day10_best_asteroid = 0;
+    this.day10_max_seeing    = 0;
+    this.day10_best_asteroid = 0;
 
-    adventofcode.day10_asteroids.forEach((asteroid, nr) => {
-        if (adventofcode.day10_max_seeing < asteroid.seeing) {
-            adventofcode.day10_max_seeing = asteroid.seeing;
-            adventofcode.day10_best_asteroid = nr;
+    this.day10_asteroids.forEach((asteroid, nr) => {
+        if (this.day10_max_seeing < asteroid.seeing) {
+            this.day10_max_seeing = asteroid.seeing;
+            this.day10_best_asteroid = nr;
         }
     });
 };

@@ -8,7 +8,7 @@ adventofcode.day11_part1 = function(input) {
 
     this.day11_current_tile = this.day11_hull_tiles[0];
 
-    this.opcode_process(input, [0], this.day11_robot_control);
+    aoc_intcode.process(input, [0], this.day11_robot_control);
 
     return this.day11_hull_tiles.length;
 };
@@ -21,7 +21,7 @@ adventofcode.day11_part2 = function(input) {
 
     this.day11_current_tile = this.day11_hull_tiles[0];
 
-    this.opcode_process(input, [1], this.day11_robot_control);
+    aoc_intcode.process(input, [1], this.day11_robot_control);
 
     this.day11_paint_hull(this.day11_hull_tiles);
 

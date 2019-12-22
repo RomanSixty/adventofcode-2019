@@ -7,20 +7,20 @@ adventofcode.day3_max_x = 0;
 adventofcode.day3_max_y = 0;
 
 adventofcode.day3_part1 = function(input) {
-    let paths     = adventofcode.day3_get_paths(input.split("\n"));
-    let crossings = adventofcode.day3_get_crossings(paths);
+    let paths     = this.day3_get_paths(input.split("\n"));
+    let crossings = this.day3_get_crossings(paths);
 
     // get the crossing closest to the origin [0,0]
     let crossing_distances = crossings.map(node => Math.abs(node.x) + Math.abs(node.y));
 
-    adventofcode.day3_print_svg(paths, crossings);
+    this.day3_print_svg(paths, crossings);
 
     return Math.min(...crossing_distances);
 };
 
 adventofcode.day3_part2 = function(input) {
-    let paths     = adventofcode.day3_get_paths(input.split("\n"));
-    let crossings = adventofcode.day3_get_crossings(paths);
+    let paths     = this.day3_get_paths(input.split("\n"));
+    let crossings = this.day3_get_crossings(paths);
 
     let shortest = 999999999;
 
@@ -54,7 +54,7 @@ adventofcode.day3_part2 = function(input) {
         }
     });
 
-    adventofcode.day3_print_svg(paths, [best_crossing]);
+    this.day3_print_svg(paths, [best_crossing]);
 
     return shortest;
 };
@@ -81,22 +81,22 @@ adventofcode.day3_get_paths = function(wires) {
             switch (node[0]) {
                 case 'L':
                     x -= distance;
-                    adventofcode.day3_min_x = Math.min(adventofcode.day3_min_x, x);
+                    this.day3_min_x = Math.min(this.day3_min_x, x);
                     break;
 
                 case 'U':
                     y -= distance;
-                    adventofcode.day3_min_y = Math.min(adventofcode.day3_min_y, y);
+                    this.day3_min_y = Math.min(this.day3_min_y, y);
                     break;
 
                 case 'R':
                     x += distance;
-                    adventofcode.day3_max_x = Math.max(adventofcode.day3_max_x, x);
+                    this.day3_max_x = Math.max(this.day3_max_x, x);
                     break;
 
                 case 'D':
                     y += distance;
-                    adventofcode.day3_max_y = Math.max(adventofcode.day3_max_y, y);
+                    this.day3_max_y = Math.max(this.day3_max_y, y);
                     break;
             }
 
@@ -120,10 +120,10 @@ adventofcode.day3_get_crossings = function(paths) {
     let crossings = [];
 
     for (let idx = 1; idx < paths[0].length; idx++) {
-        [ x_min_0, y_min_0, x_max_0, y_max_0 ] = adventofcode.day3_get_bounds(paths[0][idx], paths[0][idx-1]);
+        [ x_min_0, y_min_0, x_max_0, y_max_0 ] = this.day3_get_bounds(paths[0][idx], paths[0][idx-1]);
 
         for (let idy = 1; idy < paths[1].length; idy++) {
-            [ x_min_1, y_min_1, x_max_1, y_max_1 ] = adventofcode.day3_get_bounds(paths[1][idy], paths[1][idy-1]);
+            [ x_min_1, y_min_1, x_max_1, y_max_1 ] = this.day3_get_bounds(paths[1][idy], paths[1][idy-1]);
 
             if (x_min_1 > x_max_0 || x_max_1 < x_min_0
              || y_min_1 > y_max_0 || y_max_1 < y_min_0) {
@@ -173,7 +173,7 @@ adventofcode.day3_print_svg = function(paths, crossings) {
     let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('version', '1.1');
     svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-    svg.setAttribute('viewBox', (adventofcode.day3_min_x - 50) + ' ' + (adventofcode.day3_min_y - 50) + ' ' + (adventofcode.day3_max_x + Math.abs(adventofcode.day3_min_x) + 100) + ' ' + (adventofcode.day3_max_y + Math.abs(adventofcode.day3_min_y) + 100));
+    svg.setAttribute('viewBox', (this.day3_min_x - 50) + ' ' + (this.day3_min_y - 50) + ' ' + (this.day3_max_x + Math.abs(this.day3_min_x) + 100) + ' ' + (this.day3_max_y + Math.abs(this.day3_min_y) + 100));
 
     let path_1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     path_1.setAttribute('d', 'M' + paths[0].map(node => node.x+','+node.y).join(" "));

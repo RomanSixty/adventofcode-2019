@@ -1,14 +1,14 @@
 adventofcode.activate(1);
 
 adventofcode.day1_part1 = function(input) {
-    input = adventofcode.to_array(input);
+    input = input.split("\n");
     input = input.map(x => Math.floor(parseInt(x)/3) - 2);
 
     return input.reduce((accumulator, value) => accumulator + value);
 };
 
 adventofcode.day1_part2 = function(input) {
-    input = adventofcode.to_array(input);
+    input = input.split("\n");
     input = input.map(x => {
         let fuel_total = fuel_added = Math.floor(parseInt(x)/3) - 2;
 

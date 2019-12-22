@@ -1,7 +1,7 @@
 adventofcode.activate(13);
 
 adventofcode.day13_part1 = function(input) {
-    let screen_data = adventofcode.opcode_process(input).split(',');
+    let screen_data = aoc_intcode.process(input).split(',');
 
     let tiles = [[],[],[],[],[]];
 
@@ -23,7 +23,7 @@ adventofcode.day13_part1 = function(input) {
 adventofcode.day13_part2 = function(input) {
     input = input.replace(0,2);
 
-    let screen_data = adventofcode.opcode_process(input, [], this.day13_gameplay).split(',');
+    let screen_data = aoc_intcode.process(input, [], this.day13_gameplay).split(',');
 
     return this.day13_gameplay(screen_data, true);
 };

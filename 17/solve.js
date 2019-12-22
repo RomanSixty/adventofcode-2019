@@ -1,7 +1,7 @@
 adventofcode.activate(17);
 
 adventofcode.day17_part1 = function(input) {
-    let characters = this.opcode_process(input);
+    let characters = aoc_intcode.process(input);
 
     let image = characters.split(',').map(ascii => String.fromCharCode(ascii)).join('');
 
@@ -24,7 +24,7 @@ adventofcode.day17_part1 = function(input) {
 };
 
 adventofcode.day17_part2 = function(input) {
-    let characters = this.opcode_process(input);
+    let characters = aoc_intcode.process(input);
 
     let image = characters.split(',').map(ascii => String.fromCharCode(ascii)).join('');
 
@@ -73,7 +73,7 @@ adventofcode.day17_part2 = function(input) {
 
     input = input.replace(1,2);
 
-    return this.opcode_process(input, robot_inputs).split(',').pop(); // we get lots of output, but only the last number counts
+    return aoc_intcode.process(input, robot_inputs).split(',').pop(); // we get lots of output, but only the last number counts
 };
 
 /**

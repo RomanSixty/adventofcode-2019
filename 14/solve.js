@@ -1,13 +1,13 @@
 adventofcode.activate(14);
 
 adventofcode.day14_part1 = function(input) {
-    adventofcode.day14_leftovers = {};
+    this.day14_leftovers = {};
 
-    return adventofcode.day14_get_ingredients(input, 'FUEL', 1);
+    return this.day14_get_ingredients(input, 'FUEL', 1);
 };
 
 adventofcode.day14_part2 = function(input) {
-    adventofcode.day14_leftovers = {};
+    this.day14_leftovers = {};
 
     const cargo_hold = 1000000000000;
 
@@ -17,14 +17,14 @@ adventofcode.day14_part2 = function(input) {
     // however since we always have leftovers from previous runs
     // the actual amount of ore might be lower than that
 
-    let increment = Math.floor(cargo_hold / adventofcode.day14_get_ingredients(input, 'FUEL', 1));
+    let increment = Math.floor(cargo_hold / this.day14_get_ingredients(input, 'FUEL', 1));
 
     // so now home in on the actual amount
 
     while (increment > 0) {
-        adventofcode.day14_leftovers = {};
+        this.day14_leftovers = {};
 
-        let ore_needed = adventofcode.day14_get_ingredients(input, 'FUEL', fuel_produced + increment);
+        let ore_needed = this.day14_get_ingredients(input, 'FUEL', fuel_produced + increment);
 
         if (ore_needed < cargo_hold)
             fuel_produced += increment;
@@ -45,15 +45,15 @@ adventofcode.day14_part2 = function(input) {
  * @returns {int} how much ORE is needed
  */
 adventofcode.day14_get_ingredients = function(input, product_name, product_needed) {
-    if (typeof adventofcode.day14_leftovers[product_name] === 'undefined')
-        adventofcode.day14_leftovers[product_name] = 0;
+    if (typeof this.day14_leftovers[product_name] === 'undefined')
+        this.day14_leftovers[product_name] = 0;
 
     // do we already have some product left from a previous reaction?
     // then we need less now
 
-    while (product_needed > 0 && adventofcode.day14_leftovers[product_name] > 0) {
+    while (product_needed > 0 && this.day14_leftovers[product_name] > 0) {
         product_needed--;
-        adventofcode.day14_leftovers[product_name]--;
+        this.day14_leftovers[product_name]--;
     }
 
     let ore_needed = 0;
@@ -76,7 +76,7 @@ adventofcode.day14_get_ingredients = function(input, product_name, product_neede
 
             // recursively check what's needed for any ingredient
 
-            adventofcode.day14_leftovers[product_name] = factor * product_produced - product_needed;
+            this.day14_leftovers[product_name] = factor * product_produced - product_needed;
 
             // stop recursion once we reach ORE as most basic ingredient
 
@@ -85,7 +85,7 @@ adventofcode.day14_get_ingredients = function(input, product_name, product_neede
             else {
                 let needed = factor * ingredient_amount;
 
-                ore_needed += adventofcode.day14_get_ingredients(input, ingredient_name, needed);
+                ore_needed += this.day14_get_ingredients(input, ingredient_name, needed);
             }
         });
     }

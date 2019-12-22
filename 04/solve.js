@@ -1,13 +1,13 @@
 adventofcode.activate(4);
 
 adventofcode.day4_part1 = function(input) {
-    let possibilities = adventofcode.day4_collect_part1(input);
+    let possibilities = this.day4_collect_part1(input);
 
     return possibilities.length;
 };
 
 adventofcode.day4_part2 = function(input) {
-    let possibilities = adventofcode.day4_collect_part1(input);
+    let possibilities = this.day4_collect_part1(input);
 
     let remaining = [];
 

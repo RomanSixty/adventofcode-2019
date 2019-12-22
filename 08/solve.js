@@ -1,28 +1,28 @@
 adventofcode.activate(8);
 
 adventofcode.day8_part1 = function(input) {
-    adventofcode.day8_build_layers(input);
+    this.day8_build_layers(input);
 
-    return adventofcode.day8_checksum;
+    return this.day8_checksum;
 };
 
 adventofcode.day8_part2 = function(input) {
-    const layers = adventofcode.day8_build_layers(input);
+    const layers = this.day8_build_layers(input);
 
-    adventofcode.day8_print_svg(layers);
+    this.day8_print_svg(layers);
 
     return " ";
 };
 
 adventofcode.day8_build_layers = function(input) {
-    adventofcode.day8_width  = 25;
-    adventofcode.day8_height =  6;
+    this.day8_width  = 25;
+    this.day8_height =  6;
 
-    const pixels_per_layer = adventofcode.day8_width * adventofcode.day8_height;
+    const pixels_per_layer = this.day8_width * this.day8_height;
 
     let min_zeroes = 99999999;
 
-    adventofcode.day8_checksum = 0;
+    this.day8_checksum = 0;
 
     let layers = [];
 
@@ -51,7 +51,7 @@ adventofcode.day8_build_layers = function(input) {
         });
 
         if (min_zeroes > zeroes) {
-            adventofcode.day8_checksum = ones * twos;
+            this.day8_checksum = ones * twos;
             min_zeroes = zeroes;
         }
     }
@@ -63,7 +63,7 @@ adventofcode.day8_print_svg = function(layers) {
     let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('version', '1.1');
     svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-    svg.setAttribute('viewBox', '0 0 ' + adventofcode.day8_width + ' ' + adventofcode.day8_height);
+    svg.setAttribute('viewBox', '0 0 ' + this.day8_width + ' ' + this.day8_height);
 
     layers = layers.reverse();
 
@@ -72,8 +72,8 @@ adventofcode.day8_print_svg = function(layers) {
 
         layer.split("").forEach((color,idx) => {
             if (color < 2) {
-                const y = Math.floor(idx / adventofcode.day8_width);
-                const x = idx % adventofcode.day8_width;
+                const y = Math.floor(idx / this.day8_width);
+                const x = idx % this.day8_width;
 
                 let pixel = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
                 pixel.setAttribute('x', x);

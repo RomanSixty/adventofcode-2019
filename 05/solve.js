@@ -1,9 +1,9 @@
 adventofcode.activate(5);
 
 adventofcode.day5_part1 = function(input) {
-    return adventofcode.opcode_process(input, [1]);
+    return aoc_intcode.process(input, [1]).replace(/^(0,)+/, '');
 };
 
 adventofcode.day5_part2 = function(input) {
-    return adventofcode.opcode_process(input, [5]);
+    return aoc_intcode.process(input, [5]);
 };

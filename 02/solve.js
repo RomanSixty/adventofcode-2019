@@ -6,7 +6,7 @@ adventofcode.day2_part1 = function(input) {
     input[1] = 12;
     input[2] = 2;
 
-    return adventofcode.day2_opcode_process(input);
+    return this.day2_opcode_process(input);
 };
 
 adventofcode.day2_part2 = function(input) {
@@ -19,7 +19,7 @@ adventofcode.day2_part2 = function(input) {
             program[1] = noun;
             program[2] = verb;
 
-            if (adventofcode.day2_opcode_process(program) == 19690720) {
+            if (this.day2_opcode_process(program) === 19690720) {
                 return 100 * noun + verb;
             }
         }

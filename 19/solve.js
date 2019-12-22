@@ -5,7 +5,7 @@ adventofcode.day19_part1 = function(input) {
 
     for (let y = 0; y < 50; y++) {
         for (let x = 0; x < 50; x++)
-            if (parseInt(this.opcode_process(input, [x, y])) === 1)
+            if (parseInt(aoc_intcode.process(input, [x, y])) === 1)
                 affected++;
         }
 
@@ -23,8 +23,8 @@ adventofcode.day19_part2 = function(input) {
     // otherwise we check a y further down and proceed the same way
 
     while (true) {
-        if (parseInt(this.opcode_process(input, [x+1, y])) === 0) {
-            if (parseInt(this.opcode_process(input, [x-99, y+99])) === 1) {
+        if (parseInt(aoc_intcode.process(input, [x+1, y])) === 0) {
+            if (parseInt(aoc_intcode.process(input, [x-99, y+99])) === 1) {
                 break;
             }
 

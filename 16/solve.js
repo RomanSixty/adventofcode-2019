@@ -4,7 +4,7 @@ adventofcode.day16_part1 = function(input) {
     let numbers = input.split("").map(x => parseInt(x));
 
     for (let phase = 0; phase < 100; phase++)
-        numbers = adventofcode.day16_calculate_phase(numbers);
+        numbers = this.day16_calculate_phase(numbers);
 
     return numbers.join("").substring(0,8);
 };
