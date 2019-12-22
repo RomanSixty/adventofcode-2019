@@ -99,19 +99,15 @@ adventofcode.day15_get_move_queue = function(last_move) {
 };
 
 adventofcode.day15_draw_map = function(map) {
-    let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('version', '1.1');
-    svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    let svg = aoc_svg.svg();
 
     let min_x = 0,
         min_y = 0,
         max_x = 0,
         max_y = 0;
 
-    let background = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-    background.setAttribute('width', '100%');
-    background.setAttribute('height', '100%');
-    background.setAttribute('fill', 'grey');
+    let background = aoc_svg.rect(0, 0, '100%', '100%', 'grey');
+
     svg.appendChild(background);
 
     map.forEach(cell => {
@@ -120,32 +116,21 @@ adventofcode.day15_draw_map = function(map) {
         min_y = Math.min(min_y, cell.y);
         max_y = Math.max(max_y, cell.y);
 
-        let pixel = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-        pixel.setAttribute('x', cell.x);
-        pixel.setAttribute('y', cell.y);
-        pixel.setAttribute('width', '1');
-        pixel.setAttribute('height', '1');
+        let color = 'black';
 
         switch (cell.state) {
-            case 0: pixel.setAttribute('fill', 'grey'); break;
-            case 1: pixel.setAttribute('fill', 'black'); break;
-            case 2: pixel.setAttribute('fill', 'red'); break;
+            case 0: color = 'grey'; break;
+            case 1: color = 'black'; break;
+            case 2: color = 'red'; break;
         }
 
-        svg.appendChild(pixel);
+        svg.appendChild(aoc_svg.rect(cell.x, cell.y, 1, 1, color));
     });
 
-    background.setAttribute('x', min_x);
-    background.setAttribute('y', min_y);
+    svg.appendChild(aoc_svg.circle(.5, .5, .5, 'green'));
 
-    let origin = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    origin.setAttribute('cx', .5);
-    origin.setAttribute('cy', .5);
-    origin.setAttribute('r', .5);
-    origin.setAttribute('fill','green');
-    svg.appendChild(origin);
-
-    svg.setAttribute('viewBox', min_x + ' ' + min_y + ' ' + (max_x - min_x + 1) + ' ' + (max_y - min_y + 1));
+    aoc_svg.setViewBox(svg, max_x - min_x + 1, max_y - min_y + 1, min_x, min_y);
+    aoc_svg.setPosition(background, min_x, min_y);
 
     // draw path
     let x = .5,
@@ -163,12 +148,7 @@ adventofcode.day15_draw_map = function(map) {
         nodes.push(x+','+y);
     });
 
-    let path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path.setAttribute('d', 'M' + nodes.join(" "));
-    path.setAttribute('stroke', 'yellow');
-    path.setAttribute('stroke-width', '.1');
-    path.setAttribute('fill', 'none');
-    svg.appendChild(path);
+    svg.appendChild(aoc_svg.path(nodes, .1, 'yellow'));
 
     document.querySelectorAll("#output_area svg").forEach(elem => elem.remove());
     document.querySelector('#output_area').appendChild(svg);

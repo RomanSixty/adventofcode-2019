@@ -79,40 +79,16 @@ adventofcode.day13_print_screen = function(tiles, max_x, max_y) {
     if (document.querySelector('#game_area'))
         svg = document.querySelector('#game_area');
     else
-    {
-        svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        svg.setAttribute('id', 'game_area');
-        svg.setAttribute('version', '1.1');
-        svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-        svg.setAttribute('viewBox', '0 0 ' + (max_x * 20 + 20) + ' ' + (max_y * 20 + 20));
-    }
+        svg = aoc_svg.svg(max_x + 1, max_y + 1);
 
-    tiles[0].forEach(tile => svg.appendChild(this.day13_get_svg_pixel(tile, 'black')));
-    tiles[1].forEach(tile => svg.appendChild(this.day13_get_svg_pixel(tile, 'gray')));
-    tiles[2].forEach(tile => svg.appendChild(this.day13_get_svg_pixel(tile, 'yellow')));
-    tiles[3].forEach(tile => svg.appendChild(this.day13_get_svg_pixel(tile, 'blue')));
+    tiles[0].forEach(tile => svg.appendChild(aoc_svg.rect(tile.x, tile.y, 1, 1, 'black')));
+    tiles[1].forEach(tile => svg.appendChild(aoc_svg.rect(tile.x, tile.y, 1, 1, 'gray')));
+    tiles[2].forEach(tile => svg.appendChild(aoc_svg.rect(tile.x, tile.y, 1, 1, 'yellow')));
+    tiles[3].forEach(tile => svg.appendChild(aoc_svg.rect(tile.x, tile.y, 1, 1, 'blue')));
 
     tiles[4].forEach(tile => {
-        let ball = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        ball.setAttribute('cx', tile.x * 20 + 10);
-        ball.setAttribute('cy', tile.y * 20 + 10);
-        ball.setAttribute('r', '8');
-        ball.setAttribute('fill', 'red');
-        svg.appendChild(ball);
+        svg.appendChild(aoc_svg.circle(parseInt(tile.x) + .5, parseInt(tile.y) + .5, .5, 'red'));
     });
 
     document.querySelector('#output_area').appendChild(svg);
-};
-
-adventofcode.day13_get_svg_pixel = function(tile, color) {
-    let pixel = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-
-    pixel.setAttribute('x', tile.x * 20);
-    pixel.setAttribute('y', tile.y * 20);
-    pixel.setAttribute('width',  '19');
-    pixel.setAttribute('height', '19');
-
-    pixel.setAttribute('fill', color);
-
-    return pixel;
 };

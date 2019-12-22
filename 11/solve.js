@@ -74,14 +74,10 @@ adventofcode.day11_paint_hull = function(tiles) {
         min_y = 0,
         max_y = 0;
 
-    svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('version', '1.1');
-    svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    let svg = aoc_svg.svg();
 
-    let background = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-    background.setAttribute('fill', 'black');
-    background.setAttribute('width', '100%');
-    background.setAttribute('height', '100%');
+    let background = aoc_svg.rect();
+
     svg.appendChild(background);
 
     tiles.forEach(tile => {
@@ -90,18 +86,11 @@ adventofcode.day11_paint_hull = function(tiles) {
         min_y = Math.min(min_y, tile.y);
         max_y = Math.max(max_y, tile.y);
 
-        if (tile.color === 1) {
-            let pixel = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-            pixel.setAttribute('x', tile.x);
-            pixel.setAttribute('y', tile.y);
-            pixel.setAttribute('width', '1');
-            pixel.setAttribute('height', '1');
-            pixel.setAttribute('fill', 'white');
-            svg.appendChild(pixel);
-        }
+        if (tile.color === 1)
+            svg.appendChild(aoc_svg.rect(tile.x, tile.y, 1, 1, 'white'));
     });
 
-    svg.setAttribute('viewBox', min_x + ' ' + min_y +' ' + (max_x - min_x + 1) + ' ' + (max_y - min_y + 1));
+    aoc_svg.setViewBox(svg, max_x - min_x + 1, max_y - min_y + 1, min_x, min_y);
 
     document.querySelector('#output_area').appendChild(svg);
 };

@@ -60,29 +60,19 @@ adventofcode.day8_build_layers = function(input) {
 };
 
 adventofcode.day8_print_svg = function(layers) {
-    let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('version', '1.1');
-    svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-    svg.setAttribute('viewBox', '0 0 ' + this.day8_width + ' ' + this.day8_height);
+    let svg = aoc_svg.svg(this.day8_width, this.day8_height);
 
     layers = layers.reverse();
 
     layers.forEach(layer => {
-        let layergroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        let layergroup = aoc_svg.group();
 
         layer.split("").forEach((color,idx) => {
             if (color < 2) {
                 const y = Math.floor(idx / this.day8_width);
                 const x = idx % this.day8_width;
 
-                let pixel = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-                pixel.setAttribute('x', x);
-                pixel.setAttribute('y', y);
-                pixel.setAttribute('width', 1);
-                pixel.setAttribute('height', 1);
-                pixel.setAttribute('fill', color === '0' ? 'white' : 'black');
-
-                layergroup.appendChild(pixel);
+                layergroup.appendChild(aoc_svg.rect(x, y, 1, 1, color === '0' ? 'white' : 'black'));
             }
         });
 

@@ -170,39 +170,19 @@ adventofcode.day3_get_bounds = function(node_1, node_2) {
  * @param {object[]} crossings found crossings [x,y,node1,node2]
  */
 adventofcode.day3_print_svg = function(paths, crossings) {
-    let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('version', '1.1');
-    svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-    svg.setAttribute('viewBox', (this.day3_min_x - 50) + ' ' + (this.day3_min_y - 50) + ' ' + (this.day3_max_x + Math.abs(this.day3_min_x) + 100) + ' ' + (this.day3_max_y + Math.abs(this.day3_min_y) + 100));
+    let svg = aoc_svg.svg(
+        this.day3_max_x + Math.abs(this.day3_min_x) + 100,
+        this.day3_max_y + Math.abs(this.day3_min_y) + 100,
+        this.day3_min_x - 50,
+        this.day3_min_y - 50
+    );
 
-    let path_1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path_1.setAttribute('d', 'M' + paths[0].map(node => node.x+','+node.y).join(" "));
-    path_1.setAttribute('stroke', 'red');
-    path_1.setAttribute('stroke-width', '30');
-    path_1.setAttribute('fill', 'none');
-    svg.appendChild(path_1);
-
-    let path_2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path_2.setAttribute('d', 'M' + paths[1].map(node => node.x+','+node.y).join(" "));
-    path_2.setAttribute('stroke', 'green');
-    path_2.setAttribute('stroke-width', '30');
-    path_2.setAttribute('fill', 'none');
-    svg.appendChild(path_2);
-
-    let origin = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    origin.setAttribute('cx', '0');
-    origin.setAttribute('cy', '0');
-    origin.setAttribute('r', '100');
-    origin.setAttribute('fill', 'black');
-    svg.appendChild(origin);
+    svg.appendChild(aoc_svg.path(paths[0].map(node => node.x+','+node.y), 30, 'red'));
+    svg.appendChild(aoc_svg.path(paths[1].map(node => node.x+','+node.y), 30, 'green'));
+    svg.appendChild(aoc_svg.circle(0, 0, 100));
 
     crossings.forEach(crossing => {
-        let dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        dot.setAttribute('cx', crossing.x);
-        dot.setAttribute('cy', crossing.y);
-        dot.setAttribute('r', '70');
-        dot.setAttribute('fill', 'blue');
-        svg.appendChild(dot);
+        svg.appendChild(aoc_svg.circle(crossing.x, crossing.y, 70, 'blue'));
     });
 
     document.querySelector('#output_area').appendChild(svg);
