@@ -1,7 +1,6 @@
 adventofcode.activate(22);
 
 adventofcode.day22_part1 = function(input) {
-    //let cards = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ];
     let cards = Array.from(Array(10007).keys());
 
     input.split("\n").forEach(command => {
@@ -16,9 +15,23 @@ adventofcode.day22_part1 = function(input) {
 };
 
 adventofcode.day22_part2 = function(input) {
-    this.showImage('https://i.giphy.com/media/PprHjp7DCw4BW/giphy.webp');
+    /*
+    let cards = Array.from(Array(119315717514047).keys());
 
-    return 'maybe another time...'
+    input.split("\n").forEach(command => {
+        let regexp = new RegExp('(cut|deal with increment|deal into new stack)( -?\\d+)?', 'i');
+
+        [dummy, technique, param] = regexp.exec(command);
+
+        cards = this.day22_shuffler[technique.replace(RegExp(' ', 'g'), '_')](cards, parseInt(param));
+    });
+
+    return cards[2020];
+    */
+
+    this.showImage('https://i.giphy.com/media/GQmkN38qmBf5m/giphy.webp');
+
+    return 'mah array is tooo biiig';
 };
 
 adventofcode.day22_shuffler = {
